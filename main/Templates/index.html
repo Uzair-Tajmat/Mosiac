@@ -1,0 +1,37 @@
+{% load static%}
+<!DOCTYPE HTML>
+<html lang="en-gb">
+  <head>
+  	<meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  	<title>Video player example</title>
+  	<link rel="stylesheet" type="text/css" href="{% static 'home.css'%}">
+    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js" as="script">
+
+  </head>
+  <body>
+    <div class="player">
+      <video id="video">
+        <source src="{% static 'sintel-short.mp4'%}" type="video/mp4" />
+        <source src="video/sintel-short.webm" type="video/webm" />
+        <!-- fallback content here -->
+      </video>
+      <!-- <canvas></canvas> -->
+      <div class="controls">
+        <button class="play" data-icon="P" aria-label="play pause toggle"></button>
+        <button class="stop" data-icon="S" aria-label="stop"></button>
+        <div class="timer">
+          <div></div>
+          <span aria-label="timer">00:00</span>
+        </div>
+        <button class="rwd" data-icon="B" aria-label="rewind"></button>
+        <button class="fwd" data-icon="F" aria-label="fast forward"></button>
+      </div>
+    </div>
+    <canvas id="canvas"></canvas>
+    <div id="output"></div>
+    <script src="{% static 'custom-player.js'%}"></script>
+    <script src="https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+  </body>
+</html>
