@@ -15,6 +15,7 @@ const timerBar = document.querySelector(".timer div");
 
 media.removeAttribute("controls");
 controls.style.visibility = "visible";
+const progress = document.querySelector('.progress')
 
 play1.addEventListener("click", playPauseMedia);
 stop.addEventListener("click", stopMedia);
@@ -47,7 +48,7 @@ function playPauseMedia() {
     
   }
 }
-let resultShow=document.getElementById('#output');
+let resultShow=document.getElementById('output');
 function calling(){
     console.log("Done");
     clearInterval(call);
@@ -61,19 +62,20 @@ function calling(){
       context.drawImage(video, 0, 0, canvas.width, canvas.height);
       let imageDataUrl = canvas.toDataURL('image/png');
       // window.open(dataURL);
-      script.onload = async () => {
-        try {
-          const result = await Tesseract.recognize(
-            imageDataUrl,
-            'eng', // language
-            { logger: m => console.log(m) } // logger
-          );
-          // Display the extracted text
-          document.getElementById('#output').innerText = result.data.text;
-        } catch (error) {
-          console.error('Error during text recognition:', error);
-        }
-      };     
+      const rec=new Tesseract.TesseractWorker();
+      rec.recognize(imageDataUrl)
+      .progress(response=>{
+        if (response.status === 'recognizing text') {
+          progress.textContent = `${response.status} ${response.progress}`;
+      } else {
+          progress.textContent = response.status;
+      }
+      })
+      .then(data => {
+        resultShow.textContent = data.text;
+        console.log(data.text);
+        progress.textContent = 'Done';
+    });
        
 }
 
