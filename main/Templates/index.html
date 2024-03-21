@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
   	<title>Video player example</title>
   	<link rel="stylesheet" type="text/css" href="{% static 'home.css'%}">
-    <link rel="preload" href="https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js" as="script">
 
   </head>
   <body>
+
     <div class="player">
       <video id="video">
         <source src="{% static 'Test.mp4'%}" type="video/mp4" />
@@ -32,7 +32,6 @@
     <div class="progress"></div>
     <div id="output"></div>
     <script src="{% static 'custom-player.js'%}"></script>
-    <script src="https://unpkg.com/tesseract.js@v2.0.0-alpha.13/dist/tesseract.min.js"></script>
     <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   </body>
 </html>

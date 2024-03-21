@@ -1,6 +1,4 @@
-const script = document.createElement('script');
-script.src = 'https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js';
-document.head.appendChild(script);
+const script = document.createElement("script");
 const media = document.querySelector("video");
 const controls = document.querySelector(".controls");
 
@@ -15,7 +13,7 @@ const timerBar = document.querySelector(".timer div");
 
 media.removeAttribute("controls");
 controls.style.visibility = "visible";
-const progress = document.querySelector('.progress')
+const progress = document.querySelector(".progress");
 
 play1.addEventListener("click", playPauseMedia);
 stop.addEventListener("click", stopMedia);
@@ -37,48 +35,71 @@ function playPauseMedia() {
     console.log("Playing");
   } else {
     play1.setAttribute("data-icon", "P");
-    const isPaused=media.pause();
-    console.log("Paused");
-    const currentTime1=media.currentTime;
-    console.log(currentTime1);
-    call=setInterval(calling,3000);
-    // if (isPaused && currentTime >180) {
-    //     console.log("More than 3 minutes");
-    // }
-    
+    const isPaused = media.pause();
+    const currentTime1 = media.currentTime;
+
+    call = setInterval(calling(currentTime1), 3000);
   }
 }
-let resultShow=document.getElementById('output');
-function calling(){
-    console.log("Done");
-    clearInterval(call);
-    const video = document.getElementById('video');
-      const canvas = document.getElementById('canvas');
-      const context = canvas.getContext('2d');
-      
-      canvas.width = video.videoWidth;
-      canvas.height = video.videoHeight;
-      
-      context.drawImage(video, 0, 0, canvas.width, canvas.height);
-      let imageDataUrl = canvas.toDataURL('image/png');
-      // window.open(dataURL);
-      const rec=new Tesseract.TesseractWorker();
-      rec.recognize(imageDataUrl)
-      .progress(response=>{
-        if (response.status === 'recognizing text') {
-          progress.textContent = `${response.status} ${response.progress}`;
-      } else {
-          progress.textContent = response.status;
+function getCookie(name) {
+  var cookieValue = null;
+  if (document.cookie && document.cookie !== "") {
+    var cookies = document.cookie.split(";");
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      // Does this cookie string begin with the name we want?
+      if (cookie.substring(0, name.length + 1) === name + "=") {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
       }
-      })
-      .then(data => {
-        resultShow.textContent = data.text;
-        console.log(data.text);
-        progress.textContent = 'Done';
-    });
-       
+    }
+  }
+  return cookieValue;
 }
 
+function calling(ctr1) {
+  clearInterval(call);
+  const video = document.getElementById("video");
+  const canvas = document.getElementById("canvas");
+  const context = canvas.getContext("2d");
+
+  canvas.width = video.videoWidth;
+  canvas.height = video.videoHeight;
+
+  context.drawImage(video, 0, 0, canvas.width, canvas.height);
+  let imageDataUrl = canvas.toDataURL("image/png");
+
+  var csrftoken = getCookie("csrftoken");
+  $(document).ready(function () {
+    var status = ctr1;
+    $.ajax({
+      url: "/pausedContent/",
+      method: "POST",
+      headers: { "X-CSRFToken": csrftoken },
+      data: { status: status },
+      success: function (response) {
+        sendImageToBackend(imageDataUrl);
+      },
+      error: function (xhr, status, error) {},
+    });
+  });
+}
+
+function sendImageToBackend(imgData) {
+  var xhr = new XMLHttpRequest();
+  xhr.open("POST", "pausedContent/", true);
+  xhr.setRequestHeader("Content-Type", "application/json");
+  xhr.onreadystatechange = function () {
+    if (xhr.readyState === XMLHttpRequest.DONE) {
+      if (xhr.status === 200) {
+        console.log("Image sent successfully");
+      } else {
+        console.error("Failed to send image");
+      }
+    }
+  };
+  xhr.send(JSON.stringify({ image_data: imgData }));
+}
 function stopMedia() {
   rwd.classList.remove("active");
   fwd.classList.remove("active");
@@ -156,17 +177,3 @@ function setTime() {
     timerWrapper.clientWidth * (media.currentTime / media.duration);
   timerBar.style.width = `${barLength}px`;
 }
-
-
-  // const canvas=document.querySelector('canvas');
-  // const ctx=canvas.getContext('2d');
-  
-  // // media.addEventListener('loadedmetadata',()=>{
-  // //   canvas.height=media.height;
-  // //   canvas.width=media.width;
-  // // })
-  
-  // media.addEventListener('play',()=>{
-  //   ctx.drawImage(media,0,0 )
-  // })
-
