@@ -1,24 +1,24 @@
-{% load static%}
-<!DOCTYPE HTML>
+{% load static %}
+<!DOCTYPE html>
 <html lang="en-gb">
   <head>
-  	<meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  	<title>Video player example</title>
-  	<link rel="stylesheet" type="text/css" href="{% static 'home.css'%}">
-
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Video player example</title>
+    <link rel="stylesheet" type="text/css" href="{% static 'home.css'%}" />
   </head>
   <body>
-
     <div class="player">
-      <video id="video">
-        <source src="{% static 'Test.mp4'%}" type="video/mp4" />
-        <source src="video/sintel-short.webm" type="video/webm" />
-        <!-- fallback content here -->
+      <video id="video" class="video" width="640" height="360">
+        <source src="{% static 'Test1.mp4'%}" type="video/mp4" class="src1" />
       </video>
-      <!-- <canvas></canvas> -->
+
       <div class="controls">
-        <button class="play" data-icon="P" aria-label="play pause toggle"></button>
+        <button
+          class="play"
+          data-icon="P"
+          aria-label="play pause toggle"
+        ></button>
         <button class="stop" data-icon="S" aria-label="stop"></button>
         <div class="timer">
           <div></div>
@@ -28,10 +28,18 @@
         <button class="fwd" data-icon="F" aria-label="fast forward"></button>
       </div>
     </div>
+
+    <div class="playlist">Hi</div>
     <canvas id="canvas"></canvas>
     <div class="progress"></div>
     <div id="output"></div>
+
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'closing-window.js'%}"></script>
     <script src="{% static 'custom-player.js'%}"></script>
-    <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
   </body>
 </html>

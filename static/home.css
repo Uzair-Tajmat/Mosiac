@@ -11,8 +11,11 @@
   
   video {
     border: 1px solid black;
+    max-width: 90%;
   }
-  
+  .src1{
+    width: 100px;
+  }
   p {
     position: absolute;
     top: 310px;
@@ -20,7 +23,9 @@
   
   .player {
     position: absolute;
+    max-width: 400px;
   }
+
   
   .controls {
     visibility: visible;
@@ -123,4 +128,10 @@ canvas{
   height: 310px;
   width: 720px;
   margin-top: 1000px;
+}
+.playlist{
+  display: flex;
+  flex-direction: row;
+  background-color: #222;
+  margin-left: 800px;
 }

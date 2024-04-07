@@ -21,4 +21,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
     path('pausedContent/', views.pausedContent, name='pausedContent'),
+    path('closingWindow/',views.closingWindow,name='closingWindow')
 ]
