@@ -1,45 +1,84 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en-gb">
+<html>
   <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Video player example</title>
-    <link rel="stylesheet" type="text/css" href="{% static 'home.css'%}" />
+    <title>Mosiac</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@500&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&family=Ubuntu:wght@300&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="{% static 'home.css'%}" />
   </head>
   <body>
-    <div class="player">
-      <video id="video" class="video" width="640" height="360">
-        <source src="{% static 'Test1.mp4'%}" type="video/mp4" class="src1" />
-      </video>
+    <div class="video-section">
+      <section class="video-div">
+        <div class="player">
+          <video id="video" class="video" width="900" height="450">
+            <source
+              src="{% static 'Test1.mp4' %}"
+              type="video/mp4"
+              class="src1"
+            />
+          </video>
 
-      <div class="controls">
-        <button
-          class="play"
-          data-icon="P"
-          aria-label="play pause toggle"
-        ></button>
-        <button class="stop" data-icon="S" aria-label="stop"></button>
-        <div class="timer">
-          <div></div>
-          <span aria-label="timer">00:00</span>
+          <div class="controls">
+            <button
+              class="play"
+              data-icon="P"
+              aria-label="play pause toggle"
+            ></button>
+            <button class="stop" data-icon="S" aria-label="stop"></button>
+            <div class="timer">
+              <div></div>
+              <span aria-label="timer">00:00</span>
+            </div>
+            <button class="rwd" data-icon="B" aria-label="rewind"></button>
+            <button
+              class="fwd"
+              data-icon="F"
+              aria-label="fast forward"
+            ></button>
+          </div>
         </div>
-        <button class="rwd" data-icon="B" aria-label="rewind"></button>
-        <button class="fwd" data-icon="F" aria-label="fast forward"></button>
-      </div>
+      </section>
+      <section class="video-info">
+        <a class="about-creator" href="#"><p>About</p> </a>
+        <a class="video-discription" href="#"><p>Discription</p> </a>
+        <a class="excercises" href="#"><p>Exercises</p> </a>
+      </section>
     </div>
 
-    <div class="playlist">Hi</div>
-    <canvas id="canvas"></canvas>
-    <div class="progress"></div>
-    <div id="output"></div>
+    <div class="playlist-Enroll">
+      <section class="playlist-section">
+        <!-- <a href="" class="videoPlaylist">
+          <div class="thumnail"></div>
+          <div class="info-section">
+            <h4 class="title"></h4>
+          </div>
+        </a> -->
+      </section>
 
-    <script
-      src="https://code.jquery.com/jquery-3.7.1.min.js"
-      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-      crossorigin="anonymous"
-    ></script>
-    <script src="{% static 'closing-window.js'%}"></script>
-    <script src="{% static 'custom-player.js'%}"></script>
+      <section class="enroll-block">
+        <p>Enroll for Course</p>
+        <button>Enroll</button>
+      </section>
+    </div>
+    <canvas id="canvas"></canvas>
+    <img id="id_hidden_image_field" />
   </body>
+  <script
+    src="https://code.jquery.com/jquery-3.7.1.min.js"
+    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+    crossorigin="anonymous"
+  ></script>
+  <script src="{% static 'closing-window.js'%}"></script>
+  <script src="{% static 'custom-player.js'%}"></script>
+  <script src="{% static 'Fetch-video.js'%}"></script>
 </html>

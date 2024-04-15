@@ -21,5 +21,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
     path('pausedContent/', views.pausedContent, name='pausedContent'),
-    path('closingWindow/',views.closingWindow,name='closingWindow')
+    path('closingWindow/',views.closingWindow,name='closingWindow'),
+    path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
 ]

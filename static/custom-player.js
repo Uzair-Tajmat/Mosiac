@@ -37,7 +37,7 @@ function playPauseMedia() {
     play1.setAttribute("data-icon", "P");
     const isPaused = media.pause();
     const currentTime1 = media.currentTime;
-
+    console.log("Paused");
     call = setInterval(calling(currentTime1), 3000);
   }
 }
@@ -67,8 +67,7 @@ function calling(ctr1) {
   canvas.height = video.videoHeight;
 
   context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  let imageDataUrl = canvas.toDataURL("image/png");
-
+  let imageDataUrl = canvas.toDataURL("image/jpg");
   var csrftoken = getCookie("csrftoken");
   $(document).ready(function () {
     var status = ctr1;
@@ -76,8 +75,9 @@ function calling(ctr1) {
       url: "/pausedContent/",
       method: "POST",
       headers: { "X-CSRFToken": csrftoken },
-      data: { status: status },
+      data: {},
       success: function (response) {
+        console.log("Done");
         sendImageToBackend(imageDataUrl);
       },
       error: function (xhr, status, error) {},
@@ -86,20 +86,28 @@ function calling(ctr1) {
 }
 
 function sendImageToBackend(imgData) {
-  var xhr = new XMLHttpRequest();
-  xhr.open("POST", "pausedContent/", true);
-  xhr.setRequestHeader("Content-Type", "application/json");
-  xhr.onreadystatechange = function () {
-    if (xhr.readyState === XMLHttpRequest.DONE) {
-      if (xhr.status === 200) {
+  var formData = new FormData();
+  formData.append("image_data", imgData);
+
+  fetch("/pausedContent/", {
+    method: "POST",
+    headers: {
+      "X-CSRFToken": getCookie("csrftoken"),
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
         console.log("Image sent successfully");
       } else {
         console.error("Failed to send image");
       }
-    }
-  };
-  xhr.send(JSON.stringify({ image_data: imgData }));
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
 }
+
 function stopMedia() {
   rwd.classList.remove("active");
   fwd.classList.remove("active");
