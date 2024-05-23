@@ -20,8 +20,9 @@ from main import views
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
+    path('Main/',views.Main,name='Main'),
     path('pausedContent/', views.pausedContent, name='pausedContent'),
     path('closingWindow/',views.closingWindow,name='closingWindow'),
     path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
-    path('handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
+    path('Main/handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
 ]

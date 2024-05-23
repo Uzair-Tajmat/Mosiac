@@ -69,6 +69,10 @@ async def closingWindow(request):
 def home(request):
     return render(request,'index.html')
 
+def Main(request):
+    return render(request,'Main.html')
+
+
 @csrf_exempt
 def pausedContent(request):
     if request.method == 'POST':
