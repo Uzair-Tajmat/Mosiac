@@ -22,7 +22,7 @@
         <div class="player">
           <video id="video" class="video" width="900" height="450">
             <source
-              src="{% static 'Test1.mp4' %}"
+              src="{% static 'Test2.mp4' %}"
               type="video/mp4"
               class="src1"
             />
@@ -71,14 +71,15 @@
       </section>
     </div>
     <canvas id="canvas"></canvas>
-    <img id="id_hidden_image_field" />
+    <div id="output"></div>
+    <div class="progress"></div>
+    <script
+      src="https://code.jquery.com/jquery-3.7.1.min.js"
+      integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
+      crossorigin="anonymous"
+    ></script>
+    <script src="{% static 'closing-window.js'%}"></script>
+    <script src="{% static 'custom-player.js'%}"></script>
+    <script src="{% static 'Fetch-video.js'%}"></script>
   </body>
-  <script
-    src="https://code.jquery.com/jquery-3.7.1.min.js"
-    integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
-    crossorigin="anonymous"
-  ></script>
-  <script src="{% static 'closing-window.js'%}"></script>
-  <script src="{% static 'custom-player.js'%}"></script>
-  <script src="{% static 'Fetch-video.js'%}"></script>
 </html>

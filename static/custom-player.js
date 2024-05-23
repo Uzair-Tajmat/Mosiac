@@ -1,4 +1,7 @@
 const script = document.createElement("script");
+script.src =
+  "https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js";
+document.head.appendChild(script);
 const media = document.querySelector("video");
 const controls = document.querySelector(".controls");
 
@@ -10,7 +13,7 @@ const fwd = document.querySelector(".fwd");
 const timerWrapper = document.querySelector(".timer");
 const timer = document.querySelector(".timer span");
 const timerBar = document.querySelector(".timer div");
-
+let resultShow = document.querySelector(".output");
 media.removeAttribute("controls");
 controls.style.visibility = "visible";
 const progress = document.querySelector(".progress");
@@ -36,9 +39,9 @@ function playPauseMedia() {
   } else {
     play1.setAttribute("data-icon", "P");
     const isPaused = media.pause();
-    const currentTime1 = media.currentTime;
-    console.log("Paused");
-    call = setInterval(calling(currentTime1), 3000);
+    const currentTime1 = Math.floor(media.currentTime);
+    console.log("Paused at:", currentTime1, "seconds");
+    sendPauseTime(currentTime1);
   }
 }
 function getCookie(name) {
@@ -57,51 +60,19 @@ function getCookie(name) {
   return cookieValue;
 }
 
-function calling(ctr1) {
-  clearInterval(call);
-  const video = document.getElementById("video");
-  const canvas = document.getElementById("canvas");
-  const context = canvas.getContext("2d");
-
-  canvas.width = video.videoWidth;
-  canvas.height = video.videoHeight;
-
-  context.drawImage(video, 0, 0, canvas.width, canvas.height);
-  let imageDataUrl = canvas.toDataURL("image/jpg");
-  var csrftoken = getCookie("csrftoken");
-  $(document).ready(function () {
-    var status = ctr1;
-    $.ajax({
-      url: "/pausedContent/",
-      method: "POST",
-      headers: { "X-CSRFToken": csrftoken },
-      data: {},
-      success: function (response) {
-        console.log("Done");
-        sendImageToBackend(imageDataUrl);
-      },
-      error: function (xhr, status, error) {},
-    });
-  });
-}
-
-function sendImageToBackend(imgData) {
-  var formData = new FormData();
-  formData.append("image_data", imgData);
-
-  fetch("/pausedContent/", {
+function sendPauseTime(currentTime) {
+  const csrftoken = getCookie("csrftoken");
+  fetch("handle_pause_time/", {
     method: "POST",
     headers: {
-      "X-CSRFToken": getCookie("csrftoken"),
+      "Content-Type": "application/json",
+      "X-CSRFToken": csrftoken, // Include the CSRF token in the headers
     },
-    body: formData,
+    body: JSON.stringify({ paused_time: currentTime }),
   })
-    .then((response) => {
-      if (response.ok) {
-        console.log("Image sent successfully");
-      } else {
-        console.error("Failed to send image");
-      }
+    .then((response) => response.json())
+    .then((data) => {
+      console.log("Success:", data);
     })
     .catch((error) => {
       console.error("Error:", error);

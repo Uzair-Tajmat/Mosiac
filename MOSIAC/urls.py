@@ -23,4 +23,5 @@ urlpatterns = [
     path('pausedContent/', views.pausedContent, name='pausedContent'),
     path('closingWindow/',views.closingWindow,name='closingWindow'),
     path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
+    path('handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
 ]

@@ -1,5 +1,5 @@
 import base64
-from django.shortcuts import render,redirect
+from django.shortcuts import render,redirect # type: ignore
 from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 import os
@@ -9,8 +9,9 @@ import asyncio
 import cv2
 import numpy as np
 import pytesseract
-
+import json
 import re
+import logging
 import base64
 
 
@@ -74,27 +75,6 @@ def pausedContent(request):
         status = request.POST.get('status')
         print(status)
         image_data = request.FILES.get('image_data')
-        save_folder = './static'
-        os.makedirs(save_folder, exist_ok=True)
-
-            # Generate a unique filename
-        filename = "one"
-
-            # Save the image to the folder
-        with open(os.path.join(save_folder, filename), 'wb') as f:
-            for chunk in image_data.chunks():
-                f.write(chunk)
-        # try:
-        #     image_data = base64.b64decode(image_data)
-            
-        # except TypeError:
-        #     return JsonResponse({'error': 'Invalid base64-encoded image data'}, status=400)
-        # nparr = np.frombuffer(image_data, np.uint8)
-        # print("Done")
-        # img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-        # thresh = cv2.threshold(img, 0, 255, cv2.THRESH_BINARY_INV + cv2.THRESH_OTSU)[1]
-        # data = pytesseract.image_to_string(thresh, lang='eng', config='--psm 6')
-        # print(data)
         
         return HttpResponse({'message': 'Status updated successfully'})
     else:
@@ -112,13 +92,35 @@ def fetch_videos(request):
             videos.append({'name': filename, 'path': os.path.join(video_folder, filename)})
     return JsonResponse(videos, safe=False)
 
+logger = logging.getLogger(__name__)
 
-def handle_uploaded_image(image_data):
-    # Define the path where you want to save the image
-    # Make sure the directory exists and is writable
-    save_path = './static/image.jpg'
-    
-    # Write the image data to the specified path
-    with open(save_path, 'wb') as destination:
-        for chunk in image_data.chunks():
-            destination.write(chunk)
+@csrf_exempt
+def handle_pause_time(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        paused_time = data.get('paused_time')
+        
+        # Load JSON data
+        try:
+            with open('./static/Test2_extracted_text.json', 'r') as json_file:
+                json_data = json.load(json_file)
+                
+            # Construct the key
+            key = f"Test2_second_{paused_time}"
+            
+            # Get the corresponding text
+            text = json_data.get(key, "No text available for this second.")
+            print(text)
+            
+            # Print the text to the server logs
+            logger.info(f"Paused at {paused_time} seconds: {text}")
+            
+            return JsonResponse({'status': 'success', 'paused_time': paused_time})
+        except FileNotFoundError:
+            logger.error('JSON file not found.')
+            return JsonResponse({'status': 'error', 'message': 'JSON file not found.'}, status=500)
+        except json.JSONDecodeError:
+            logger.error('Error decoding JSON file.')
+            return JsonResponse({'status': 'error', 'message': 'Error decoding JSON file.'}, status=500)
+        
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
