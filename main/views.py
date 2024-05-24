@@ -69,6 +69,10 @@ async def closingWindow(request):
 def home(request):
     return render(request,'index.html')
 
+def First(request):
+    return render(request,'First.html')
+
+@csrf_exempt
 def Main(request):
     return render(request,'Main.html')
 

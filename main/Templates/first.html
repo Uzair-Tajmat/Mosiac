@@ -1,0 +1,269 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Youtube</title>
+
+    <style></style>
+    <link rel="stylesheet" href="{% static 'dist/css/video-preview.css' %}" />
+    <link rel="stylesheet" href="{% static 'dist/css/header.css' %}" />
+    <link rel="stylesheet" href="{% static 'dist/css/general.css' %}" />
+    <link rel="stylesheet" href="{% static 'dist/css/popup.css' %}" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600"
+      rel="stylesheet"
+    />
+    <style>
+      
+    </style>
+  </head>
+  <body>
+    <header class="header">
+      <div class="left">
+        <img class="ham" src="/static/dist/images/hamburger-menu.svg" />
+        <img class="youtube" src="/static/dist/images/logo-dark.svg" />
+      </div>
+      <!-- <div class="middle">
+        <input class="search" type="text" placeholder="Search" /><br />
+        <button class="search_b">
+          <img class="search_button_img" src="/static/dist/images/notifications.svg" />
+          <div class="tooltip">Search</div>
+        </button>
+        <button class="voice_1">
+          <img class="voice" src="/static/dist/images/voice-search-icon.svg" />
+          <div class="tooltip">Your Voice</div>
+        </button>
+      </div> -->
+      <div class="right">
+        <a href="#"
+          ><img class="upload-icon" src="/static/dist/images/upload.svg"
+        /></a>
+        <img class="youtube-icon" src="/static/dist/images/youtube-apps.svg" />
+        <div class="noti-icon-container">
+          <img class="noti-icon" src="/static/dist/images/notifications.svg" />
+          <div class="count">3</div>
+        </div>
+        <img
+          class="current-user-picture"
+          src="/static/dist/images/trig_account.jpg"
+        />
+      </div>
+    </header>
+    <div class="hero-media">
+      <div class="header-illustration">
+        <img
+          class="header-illustration-image asset-dark"
+          src="/static/dist/images/header-illustration-dark.svg"
+          alt="Header illustration"
+        />
+      </div>
+      <div class="hero-media-illustration">
+        <img
+          class="hero-media-illustration-image asset-dark"
+          src="/static/dist/images/hero-media-illustration-dark.svg"
+          alt="Hero media illustration"
+        />
+      </div>
+    </div>
+    
+    </div>
+
+    <div class="video-grid">
+      <form class="video-preview" method="post" action="Main/">
+        <div class="thumbnail-row">
+          <img class="thumbnails" src="/static/dist/images/Triggu.webp" /><br />
+          <div class="vide-time">14:20</div>
+        </div>
+        <div class="video-grid-info">
+          <div class="channel-pic">
+            <img
+              class="account-image"
+              src="/static/dist/images/trig_account.jpg"
+            />
+          </div>
+          <div class="video-info">
+            <div class="video-title"><p class="title-video">I will not Post Anymore! GoodBye<br /></p>
+              <button
+              class="button button-primary"
+              type="button"
+              onclick="document.body.classList.add('active')"
+            >
+              Enroll Now
+            </button>
+            </div>
+            <p class="Youtuber">
+              Learn all about Python dictionaries in this concise tutorial!
+              We'll cover: Creating dictionaries Accessing and modifying values,
+              Key dictionary methods Iterating through dictionaries, Practical
+              examples, Perfect for beginners and those looking to refresh their
+              knowledge. Enroll for more Python tutorials!
+            </p>
+            
+          </div>
+        </div>
+      </form>
+
+      <div class="video-preview">
+        <div class="thumbnail-row">
+          <img class="thumbnails" src="/static/dist/images/Thugesh.jpg" /><br />
+          <div class="vide-time">11:20</div>
+        </div>
+        <div class="video-grid-info">
+          <div class="channel-pic">
+            <img class="account-image" src="/static/dist/images/thug.jpg" />
+          </div>
+
+          <div class="video-info">
+            <div class="video-title"><p class="title-video">I will not Post Anymore! GoodBye<br /></p>
+              <button
+              class="button button-primary"
+              type="button"
+              onclick="document.body.classList.add('active')"
+            >
+              Enroll Now
+            </button>
+            </div>
+            <p class="Youtuber">
+              Learn all about Python dictionaries in this concise tutorial!
+              We'll cover: Creating dictionaries Accessing and modifying values,
+              Key dictionary methods Iterating through dictionaries, Practical
+              examples, Perfect for beginners and those looking to refresh their
+              knowledge. Enroll for more Python tutorials!
+            </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="video-preview">
+        <div class="thumbnail-row">
+          <img class="thumbnails" src="/static/dist/images/sla.jpg" /><br />
+          <div class="vide-time">20:21</div>
+        </div>
+        <div class="video-grid-info">
+          <div class="channel-pic">
+            <img
+              class="account-image"
+              src="/static/dist/images/sla-channel.jpg"
+            />
+          </div>
+
+          <div class="video-info">
+            <div class="video-title"><p class="title-video">I will not Post Anymore! GoodBye<br /></p>
+              <button
+              class="button button-primary"
+              type="button"
+              onclick="document.body.classList.add('active')"
+            >
+              Enroll Now
+            </button>
+            </div>
+            <p class="Youtuber">
+              Learn all about Python dictionaries in this concise tutorial!
+              We'll cover: Creating dictionaries Accessing and modifying values,
+              Key dictionary methods Iterating through dictionaries, Practical
+              examples, Perfect for beginners and those looking to refresh their
+              knowledge. Enroll for more Python tutorials!
+            </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="video-preview">
+        <div class="thumbnail-row">
+          <img class="thumbnails" src="/static/dist/images/W.jpg" /><br />
+          <div class="vide-time">2:29</div>
+        </div>
+        <div class="video-grid-info">
+          <div class="channel-pic">
+            <img class="account-image" src="/static/dist/images/king.jpg" />
+          </div>
+
+          <div class="video-info">
+            <div class="video-title"><p class="title-video">I will not Post Anymore! GoodBye<br /></p>
+              <button
+              class="button button-primary"
+              type="button"
+              onclick="document.body.classList.add('active')"
+            >
+              Enroll Now
+            </button>
+            </div>
+            <p class="Youtuber">
+              Learn all about Python dictionaries in this concise tutorial!
+              We'll cover: Creating dictionaries Accessing and modifying values,
+              Key dictionary methods Iterating through dictionaries, Practical
+              examples, Perfect for beginners and those looking to refresh their
+              knowledge. Enroll for more Python tutorials!
+            </p>
+            
+          </div>
+        </div>
+      </div>
+
+      <div class="video-preview">
+        <div class="thumbnail-row">
+          <img class="thumbnails" src="/static/dist/images/jelly.jpg" /><br />
+          <div class="vide-time">2:20:00</div>
+        </div>
+        <div class="video-grid-info">
+          <div class="channel-pic">
+            <img
+              class="account-image"
+              src="/static/dist/images/jelly-pic.jpg"
+            />
+          </div>
+
+          <div class="video-info">
+            <div class="video-title"><p class="title-video">I will not Post Anymore! GoodBye<br /></p>
+              <button
+              class="button button-primary"
+              type="button"
+              onclick="document.body.classList.add('active')"
+            >
+              Enroll Now
+            </button>
+            </div>
+            <p class="Youtuber">
+              Learn all about Python dictionaries in this concise tutorial!
+              We'll cover: Creating dictionaries Accessing and modifying values,
+              Key dictionary methods Iterating through dictionaries, Practical
+              examples, Perfect for beginners and those looking to refresh their
+              knowledge. Enroll for more Python tutorials!
+            </p>
+            
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="wrapper">
+      <div class="popup">
+        <div class="popup-inside">
+          <div class="backgrounds">
+            <div class="background"></div>
+            <div class="background background2"></div>
+            <div class="background background3"></div>
+            <div class="background background4"></div>
+            <div class="background background5"></div>
+            <div class="background background6"></div>
+          </div>
+        </div>
+        <div class="content">
+          
+          <form class="content-wrapper">
+            <label for="name" class="label1">Name:</label>
+            <input type="text" id="name" name="name" /><br /><br />
+            <label for="email"  class="label1">Email:</label>
+            <input type="email" id="email" name="email" /><br /><br />
+            <button type="submit">Enroll Now</button>
+          </form>
+          <span class="close-icon" onclick="document.body.classList.remove('active')">&times;</span>
+        </div>
+        
+      </div>
+  </body>
+</html>

@@ -1,0 +1,149 @@
+.header {
+  height: 55px;
+  display: flex;
+  justify-content: space-between;
+  flex-direction: row;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%);
+
+  border-bottom-style: solid;
+  border-bottom-width: 1px;
+}
+
+.left {
+  display: flex;
+  align-items: center;
+}
+
+.right {
+  margin-right: 20px;
+  width: 180px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 180px;
+  flex-shrink: 0;
+}
+
+.middle {
+  flex: 1;
+  margin-left: 70px;
+  margin-right: 35px;
+  max-width: 500px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+}
+
+.search_b {
+  height: 38px;
+  width: 66px;
+  border-width: 1px;
+  border-style: solid;
+  border-color: rgb(192, 192, 192);
+  margin-left: -1px;
+  position: relative;
+}
+
+.search_b .tooltip,
+.voice_1 .tooltip {
+  position: absolute;
+  background-color: grey;
+  color: white;
+  padding-top: 4px;
+  padding-bottom: 4px;
+  padding-left: 8px;
+  padding-right: 8px;
+  border-radius: 2px;
+  font-size: 12px;
+  bottom: -30px;
+  opacity: 0;
+  transition: opacity 0.11s;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.search_b:hover .tooltip,
+.voice_1:hover .tooltip {
+  opacity: 1;
+}
+.search_button_img {
+  height: 25px;
+}
+
+.search_b,
+.voice_1 {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.voice_1 {
+  height: 40px;
+  width: 40px;
+  border-radius: 20px;
+  margin-left: 8px;
+  border: none;
+  background-color: rgb(248, 248, 248);
+}
+
+.voice {
+  height: 24px;
+}
+
+.ham {
+  height: 24px;
+  margin-left: 24px;
+}
+
+.youtube {
+  height: 20px;
+  margin-left: 20px;
+}
+
+.search {
+  flex: 1;
+
+  border: 1px solid rgb(192, 192, 192);
+  height: 34px;
+  font-size: 16px;
+  box-shadow: inset 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.search::placeholder {
+  font-family: Roboto;
+  font-size: 16px;
+  padding-left: 8px;
+}
+
+.upload-icon,
+.youtube-icon,
+.noti-icon {
+  height: 24px;
+}
+
+.current-user-picture {
+  height: 28px;
+  border-radius: 14px;
+}
+
+.noti-icon-container {
+  position: relative;
+}
+
+.count {
+  position: absolute;
+  top: -2px;
+  right: -5px;
+  background-color: rgb(201, 0, 0);
+  color: white;
+  border-radius: 10px;
+  font-size: small;
+  padding: 1px 5px;
+}

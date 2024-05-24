@@ -62,7 +62,7 @@ function getCookie(name) {
 
 function sendPauseTime(currentTime) {
   const csrftoken = getCookie("csrftoken");
-  fetch("Main/handle_pause_time/", {
+  fetch("First/handle_pause_time/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
