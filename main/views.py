@@ -13,6 +13,11 @@ import json
 import re
 import logging
 import base64
+from collections import defaultdict
+import time
+from .models import Upload
+from .forms import UploadForm
+from .task import performExtraction
 
 
 
@@ -132,3 +137,30 @@ def handle_pause_time(request):
             return JsonResponse({'status': 'error', 'message': 'Error decoding JSON file.'}, status=500)
         
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
+
+
+
+
+
+@csrf_exempt
+def Upload(request):
+    if request.method == 'POST':
+        form = UploadForm(request.POST, request.FILES)
+        print("Done")
+        global title
+        title=" "
+        if form.is_valid():
+            title = form.cleaned_data['title']
+            email = form.cleaned_data['email']
+            form.save()
+            performExtraction.delay(title)
+            print("Done 2")
+            return redirect('First') 
+        
+    else:
+        form = UploadForm()
+    return render(request, 'first.html', {'form': form})
+        
+
+      
+    

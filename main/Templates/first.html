@@ -38,7 +38,7 @@
         </button>
       </div> -->
       <div class="right">
-        <a href="#"
+        <a href="#"  onclick="document.body.classList.add('activeUploadForm')"
           ><img class="upload-icon" src="/static/dist/images/upload.svg"
         /></a>
         <img class="youtube-icon" src="/static/dist/images/youtube-apps.svg" />
@@ -72,7 +72,7 @@
     </div>
 
     <div class="video-grid">
-      <form class="video-preview" method="post" action="Main/">
+      <div class="video-preview">
         <div class="thumbnail-row">
           <img class="thumbnails" src="/static/dist/images/Triggu.webp" /><br />
           <div class="vide-time">14:20</div>
@@ -104,7 +104,7 @@
             
           </div>
         </div>
-      </form>
+      </div>
 
       <div class="video-preview">
         <div class="thumbnail-row">
@@ -265,5 +265,38 @@
         </div>
         
       </div>
+
+      <div class="wrapper">
+        <div class="upload-popup">
+          <div class="popup-inside">
+            <div class="backgrounds">
+              <div class="background"></div>
+              <div class="background background2"></div>
+              <div class="background background3"></div>
+              <div class="background background4"></div>
+              <div class="background background5"></div>
+              <div class="background background6"></div>
+            </div>
+          </div>
+          <div class="upload-content">
+            <div class="upload-content-wrapper">
+              <form method="post" enctype="multipart/form-data" action="{% url 'Upload'%}">
+                <!-- <label for="upload-title">Title:</label>
+                <input type="text" id="upload-title" name="upload-title" /><br /><br />
+                <label for="upload-email">Email:</label>
+                <input type="email" id="upload-email" name="upload-email" /><br /><br />
+                <label for="upload-file">Upload File:</label> -->
+                {% csrf_token %}
+                {{ form.as_p }}
+                <!-- <input type="file" id="upload-file" name="upload-file" accept="video/*" /><br /><br /> -->
+                <button type="submit">Submit</button>
+              </form>
+              <!-- <pre>{{ form.as_p }}</pre> -->
+              <span class="close-icon" onclick="document.body.classList.remove('activeUploadForm')">&times;</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
   </body>
 </html>

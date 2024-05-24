@@ -91,7 +91,7 @@ p:last-of-type {
   display: inline-block;
   position: relative;
   z-index: 2;
-  background: linear-gradient(to right, #504bff, #4cfa63);
+  background: linear-gradient(to right, #504bff, #93f4fe);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -115,7 +115,7 @@ p:last-of-type {
 .button-circle3 {
   left: auto;
   right: 0;
-  box-shadow: 0 0 10px #4cfa63, 0 0 20px #4cfa63, 0 0 30px #4cfa63;
+  box-shadow: 0 0 10px #93f4fe, 0 0 20px #93f4fe, 0 0 30px #93f4fe;
 }
 
 .button-circle4 {
@@ -123,11 +123,11 @@ p:last-of-type {
   top: auto;
   bottom: 0;
   right: 0;
-  box-shadow: 0 0 10px #4cfa63, 0 0 20px #4cfa63, 0 0 30px #4cfa63;
+  box-shadow: 0 0 10px #93f4fe, 0 0 20px #93f4fe, 0 0 30px #93f4fe;
 }
 
 .button:hover {
-  box-shadow: -15px 0 70px -15px #504bff, 15px 0 70px -15px #4cfa63;
+  box-shadow: -15px 0 70px -15px #504bff, 15px 0 70px -15px #93f4fe;
 }
 
 .button:hover .button-circle1 {
@@ -193,7 +193,7 @@ p:last-of-type {
   right: var(--offset);
   bottom: var(--offset);
   top: var(--offset);
-  background: linear-gradient(to right, #504bff, #4cfa63);
+  background: linear-gradient(to right, #504bff, #93f4fe);
   transform: scale(0);
   transition: all 0.5s ease 0s;
   border-radius: 50%;
@@ -206,7 +206,7 @@ p:last-of-type {
   right: var(--offset);
   bottom: var(--offset);
   top: var(--offset);
-  background: linear-gradient(to right, #6665ff, #69fa7f);
+  background: linear-gradient(to right, #6665ff, #a3f4fd);
   transform: scale(0);
   transition: all 0.5s ease 0.1s;
 }
@@ -218,7 +218,7 @@ p:last-of-type {
   right: var(--offset);
   bottom: var(--offset);
   top: var(--offset);
-  background: linear-gradient(to right, #8583ff, #85fa99);
+  background: linear-gradient(to right, #8583ff, #bef6fc);
   z-index: 2;
   transition: all 0.5s ease 0.2s;
 }
@@ -305,6 +305,9 @@ body.active .video-preview {
   opacity: 0;
   transition: visibility 0s 0.35s, opacity 0.35s ease;
 }
+body.active {
+  overflow: hidden;
+}
 .content-wrapper {
   position: relative;
   padding: 20px;
@@ -360,4 +363,127 @@ button[type="submit"]:hover {
 }
 .label1 {
   margin-left: 0px;
+}
+body.activeUpload .content {
+  opacity: 1;
+  transform: none;
+}
+
+body.activeUpload .popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.activeUpload .popup-inside {
+  border-radius: 0;
+  box-shadow: -50px 0 200px -50px #504bff, 50px 0 200px -50px #4cfa63;
+}
+
+body.activeUpload .background {
+  transform: scale(1);
+}
+
+body.activeUpload .background6 {
+  transform: scale(8);
+}
+body.activeUpload .video-preview {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.35s, opacity 0.35s ease;
+}
+
+body.activeUploadForm .upload-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+body.activeUploadForm .video-preview,
+body.activeUploadForm .button {
+  visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 0.35s, opacity 0.35s ease;
+}
+
+body.activeUploadForm .upload-popup {
+  opacity: 1;
+  visibility: visible;
+}
+
+.upload-popup {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-popup .popup-inside {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.upload-popup .upload-content {
+  position: relative;
+}
+
+.upload-popup .upload-content-wrapper {
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.upload-popup form {
+  display: flex;
+  flex-direction: column;
+}
+
+.upload-popup label {
+  font-size: 14px;
+  color: #333;
+  margin-bottom: 5px;
+}
+
+.upload-popup input[type="text"],
+.upload-popup input[type="email"],
+.upload-popup input[type="file"] {
+  padding: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.upload-popup button[type="submit"] {
+  padding: 10px 20px;
+  background-color: #535fd7;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.upload-popup button[type="submit"]:hover {
+  background-color: #434aa9;
+}
+
+.upload-popup .close-icon {
+  cursor: pointer;
+  font-size: 24px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  color: #333;
 }

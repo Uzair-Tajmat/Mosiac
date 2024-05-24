@@ -17,6 +17,9 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 from main import views
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',views.home,name='home'),
@@ -26,4 +29,6 @@ urlpatterns = [
     path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
     path('First/handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
     path('First/Main/',views.Main,name='Main'),
+    path('First/Upload/',views.Upload,name="Upload")
 ]
+urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
