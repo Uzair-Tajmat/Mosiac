@@ -1,11 +1,11 @@
 [
   {
-    "thumbnail": "/static/dist/images/Triggu.webp",
+    "thumbnail": "/static/dist/images/dictionary.jpg",
     "video_time": "14:20",
     "channel_pic": "/static/dist/images/trig_account.jpg",
-    "title": "I will not Post Anymore! GoodBye",
+    "title": "Python Dictionary",
     "description": "Learn all about Python dictionaries in this concise tutorial! We'll cover: Creating dictionaries Accessing and modifying values, Key dictionary methods Iterating through dictionaries, Practical examples, Perfect for beginners and those looking to refresh their knowledge. Enroll for more Python tutorials!",
-    "video_path": "/media/uploads/I_will_not_Post_Anymore_GoodBye.mp4"
+    "video_path": "/media/uploads/Python_Dictionary.mp4"
   },
   {
     "thumbnail": "/static/dist/images/Thugesh.jpg",

@@ -20,7 +20,9 @@ def process_video(video_path, title):
     and stores the text in a dictionary if the text is not repeated.
     """
     video_name = title
-    
+    print(video_path)
+    print(video_name)
+    print("Processsing Started")
     # Open the video file
     cap = cv2.VideoCapture(video_path)
     if not cap.isOpened():
@@ -59,7 +61,7 @@ def process_video(video_path, title):
 
 @shared_task
 def performExtraction(title):
-    video_path = f"/media/uploads/{title}.mp4"
+    video_path = f"./media/uploads/{title}.mp4"
     print(video_path)
     
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Replace with your Tesseract executable path
@@ -67,12 +69,10 @@ def performExtraction(title):
     text_data = process_video(video_path, title)
 
     if text_data:
-        # Print the extracted text data
-        for key, text in text_data.items():
-            print(f"{key}: {text}")
+        output_directory = "./ExtractedText_Files"
 
         # Save the dictionary to a JSON file
-        json_filename = f"{os.path.splitext(os.path.basename(video_path))[0]}_extracted_text.json"
+        json_filename = os.path.join(output_directory, f"{os.path.splitext(os.path.basename(video_path))[0]}_extracted_text.json")
         save_to_json(text_data, json_filename)
         print(f"Extracted text saved to {json_filename}")
 

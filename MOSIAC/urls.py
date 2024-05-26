@@ -27,7 +27,7 @@ urlpatterns = [
     path('pausedContent/', views.pausedContent, name='pausedContent'),
     path('closingWindow/',views.closingWindow,name='closingWindow'),
     path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
-    path('First/handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
+    path('First/Main/Main/handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
     path('First/Main/',views.Main,name='Main'),
     path('First/Upload/',views.Upload,name="Upload")
 ]

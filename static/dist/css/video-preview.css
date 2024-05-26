@@ -141,7 +141,6 @@
 }
 .button-primary {
   color: #fff !important;
-  background-color: #535fd7;
 }
 .button-primary:hover {
   background: #5763d8;
@@ -168,9 +167,9 @@
   line-height: 16px;
   text-decoration: none !important;
   text-transform: uppercase;
-  background-color: #535fd7;
   color: #e9edf3 !important;
   border: none;
+  background-color: transparent;
   border-radius: 2px;
   cursor: pointer;
   justify-content: center;

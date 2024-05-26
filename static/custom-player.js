@@ -60,9 +60,11 @@ function getCookie(name) {
   return cookieValue;
 }
 
+let dataRecieved;
+let globaltitle;
 function sendPauseTime(currentTime) {
   const csrftoken = getCookie("csrftoken");
-  fetch("First/handle_pause_time/", {
+  fetch("Main/handle_pause_time/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -72,7 +74,10 @@ function sendPauseTime(currentTime) {
   })
     .then((response) => response.json())
     .then((data) => {
-      console.log("Success:", data);
+      dataRecieved = data.generatedResponse;
+      globaltitle = data.title;
+      console.log("Success:", data.generatedResponse);
+      console.log(data.title);
     })
     .catch((error) => {
       console.error("Error:", error);
