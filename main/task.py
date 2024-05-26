@@ -55,6 +55,8 @@ def process_video(video_path, title):
     print(f"Processing time: {end_time - start_time} seconds")
     return text_per_second
 
+
+
 @shared_task
 def performExtraction(title):
     video_path = f"/media/uploads/{title}.mp4"

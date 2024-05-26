@@ -21,11 +21,7 @@
       <section class="video-div">
         <div class="player">
           <video id="video" class="video" width="900" height="450">
-            <source
-              src="{% static 'Test2.mp4' %}"
-              type="video/mp4"
-              class="src1"
-            />
+            <source src="{{ video_path }}" type="video/mp4" class="src1" />
           </video>
 
           <div class="controls">
@@ -65,10 +61,10 @@
         </a> -->
       </section>
 
-      <section class="enroll-block">
+      <!-- <section class="enroll-block">
         <p>Enroll for Course</p>
         <button>Enroll</button>
-      </section>
+      </section> -->
     </div>
     <canvas id="canvas"></canvas>
     <div id="output"></div>

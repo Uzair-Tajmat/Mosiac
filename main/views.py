@@ -18,6 +18,7 @@ import time
 from .models import Upload
 from .forms import UploadForm
 from .task import performExtraction
+# from .task import add
 
 
 
@@ -79,7 +80,11 @@ def First(request):
 
 @csrf_exempt
 def Main(request):
-    return render(request,'Main.html')
+    if request.method == "POST":
+        video_path=request.POST.get('video_path')
+        print(video_path)
+        return render(request, 'main.html', {'video_path': video_path})
+    
 
 
 @csrf_exempt
@@ -153,7 +158,13 @@ def Upload(request):
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
             form.save()
-            performExtraction.delay(title)
+            result = performExtraction(title).delay()
+            # Check task status
+            print(f"Task status: {result.status}")  # Should print 'PENDING' initially and then 'SUCCESS'
+
+            # Wait for the task to complete and get the result
+            task_result = result.get(timeout=10)  # This will block until the task completes or timeout
+            print(f"Task result: {task_result}") 
             print("Done 2")
             return redirect('First') 
         
