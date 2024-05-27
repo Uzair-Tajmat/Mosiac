@@ -1,10 +1,6 @@
-const script = document.createElement("script");
-script.src =
-  "https://cdn.jsdelivr.net/npm/tesseract.js@2.4.2/dist/tesseract.min.js";
-document.head.appendChild(script);
 const media = document.querySelector("video");
 const controls = document.querySelector(".controls");
-
+var exerciseSection = document.querySelector(".exercise");
 const play1 = document.querySelector(".play");
 const stop = document.querySelector(".stop");
 const rwd = document.querySelector(".rwd");
@@ -76,6 +72,14 @@ function sendPauseTime(currentTime) {
     .then((data) => {
       dataRecieved = data.generatedResponse;
       globaltitle = data.title;
+      var exerciseHTML = "";
+      exerciseHTML += `<form class="content" action="AllContent" method="post">
+                              <h3 class="title"">${data.title}</h3>
+                              <input type="hidden" name="data" class="data" value=
+                              ${data.generatedResponse}>
+                              <button class="goTo" type="submit">Arrow</button>
+                          </form>`;
+      exerciseSection.innerHTML = exerciseHTML;
       console.log("Success:", data.generatedResponse);
       console.log(data.title);
     })
@@ -84,6 +88,30 @@ function sendPauseTime(currentTime) {
     });
 }
 
+// function fetchdata() {
+//   console.log("CALLED");
+//   fetch("./static/response_data.json")
+//     .then((response) => {
+//       if (!response.ok) {
+//         throw new Error("Network response was not ok");
+//       }
+//       return response.json();
+//     })
+//     .then((data) => {
+//       var exerciseHTML = "";
+
+//       data.forEach(function (item, index) {
+//
+//       });
+
+//       // Set the inner HTML of the exercise section to the generated HTML
+//       exerciseSection.innerHTML = exerciseHTML;
+//     })
+//     .catch((error) => {
+//       console.error("Error fetching data:", error);
+//     });
+// }
+// setInterval(fetchdata(), 5000);
 function stopMedia() {
   rwd.classList.remove("active");
   fwd.classList.remove("active");
@@ -113,6 +141,7 @@ function mediaBackward() {
 }
 
 function mediaForward() {
+  console.log(media.currentTime);
   clearInterval(intervalRwd);
   rwd.classList.remove("active");
 

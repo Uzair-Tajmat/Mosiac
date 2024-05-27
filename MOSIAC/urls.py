@@ -29,6 +29,8 @@ urlpatterns = [
     path('fetch_videos/', views.fetch_videos, name='fetch_videos'),
     path('First/Main/Main/handle_pause_time/', views.handle_pause_time, name='handle_pause_time'),
     path('First/Main/',views.Main,name='Main'),
+    path('First/Main/Open',views.OpenMain,name='OpenMain'),
+    path('First/Main/AllContent',views.AllContent,name='AllContent'),
     path('First/Upload/',views.Upload,name="Upload")
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -11,65 +11,113 @@
       rel="stylesheet"
     />
     <link
-      href="https://fonts.googleapis.com/css2?family=Rubik:wght@300&family=Ubuntu:wght@300&display=swap"
+      href="https://fonts.googleapis.com/css?family=Heebo:400,700|IBM+Plex+Sans:600"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="{% static 'home.css'%}" />
+    <!-- <link rel="stylesheet" href="{% static 'dist/css/video-preview.css' %}" /> -->
+    <!-- <link rel="stylesheet" href="{% static 'dist/css/header.css' %}" /> -->
+    <!-- <link rel="stylesheet" href="{% static 'dist/css/general.css' %}" /> -->
+    <!-- <link rel="stylesheet" href="{% static 'dist/css/popup.css' %}" /> -->
+    <style>
+      .excercise {
+        display: inline-block;
+        width: 1200px;
+        border: 1px solid black;
+        height: 500px;
+      }
+      .content {
+        display: grid;
+        width: 700px;
+        height: 40px;
+        grid-template-columns: 670px 30px;
+        /* background-color: aqua; */
+        border: 1px solid black;
+        margin: 30px;
+      }
+      .goTo {
+        width: 20px;
+        padding: 10px;
+        border-radius: 50%;
+        display: inline-block;
+      }
+      .title {
+        display: inline-block;
+      }
+      .video-info {
+        height: 40px;
+      }
+    </style>
   </head>
   <body>
-    <div class="video-section">
-      <section class="video-div">
-        <div class="player">
-          <video id="video" class="video" width="900" height="450">
-            <source
-              src="/media/uploads/Python_Dictionary.mp4"
-              type="video/mp4"
-              class="src1"
-            />
-          </video>
+    <div class="hero-media">
+      <div class="header-illustration"></div>
+      <div class="hero-media-illustration">
+        <img
+          class="hero-media-illustration-image asset-dark"
+          src="/static/dist/images/hero-media-illustration-dark.svg"
+          alt="Hero media illustration"
+        />
+      </div>
+    </div>
+    <section class="bodyWrapper">
+      <div class="video-section">
+        <section class="video-div">
+          <div class="player">
+            <video id="video" class="video" width="900" height="450">
+              <source src="{{ video_path }}" type="video/mp4" class="src1" />
+            </video>
 
-          <div class="controls">
-            <button
-              class="play"
-              data-icon="P"
-              aria-label="play pause toggle"
-            ></button>
-            <button class="stop" data-icon="S" aria-label="stop"></button>
-            <div class="timer">
-              <div></div>
-              <span aria-label="timer">00:00</span>
+            <div class="controls">
+              <button
+                class="play"
+                data-icon="P"
+                aria-label="play pause toggle"
+              ></button>
+              <button class="stop" data-icon="S" aria-label="stop"></button>
+              <div class="timer">
+                <div></div>
+                <span aria-label="timer">00:00</span>
+              </div>
+              <button class="rwd" data-icon="B" aria-label="rewind"></button>
+              <button
+                class="fwd"
+                data-icon="F"
+                aria-label="fast forward"
+              ></button>
             </div>
-            <button class="rwd" data-icon="B" aria-label="rewind"></button>
-            <button
-              class="fwd"
-              data-icon="F"
-              aria-label="fast forward"
-            ></button>
           </div>
-        </div>
-      </section>
-      <section class="video-info">
-        <a class="about-creator" href="#"><p>About</p> </a>
-        <a class="video-discription" href="#"><p>Discription</p> </a>
-        <a class="excercises" href="#"><p>Exercises</p> </a>
-      </section>
-    </div>
+        </section>
+        <section class="video-info">
+          <a class="about-creator" href="#"><p>About</p> </a>
+          <a class="video-discription" href="#"><p>Discription</p> </a>
+          <div class="excercises" href="#"><p>Exercises</p></div>
+        </section>
+        <section class="exercise">
+          <!-- <form class="content" action="" method="post">
+            <h3 class="title">Title</h3>
+            <button class="goTo" type="submit">Arrow</button>
+          </form> -->
+        </section>
+      </div>
 
-    <div class="playlist-Enroll">
-      <section class="playlist-section">
-        <!-- <a href="" class="videoPlaylist">
-          <div class="thumnail"></div>
-          <div class="info-section">
-            <h4 class="title"></h4>
-          </div>
-        </a> -->
-      </section>
+      <div class="playlist-Enroll">
+        <section class="playlist-section">
+          <!-- <a href="" class="videoPlaylist">
+            <div class="thumnail"></div>
+            <div class="info-section">
+              <h4 class="title"></h4>
+            </div>
+          </a> -->
+        </section>
 
-      <!-- <section class="enroll-block">
-        <p>Enroll for Course</p>
-        <button>Enroll</button>
-      </section> -->
-    </div>
+        <!-- <section class="enroll-block">
+          <p>Enroll for Course</p>
+          <button>Enroll</button>
+        </section> -->
+      </div>
+    </section>
+
     <script
       src="https://code.jquery.com/jquery-3.7.1.min.js"
       integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo="
