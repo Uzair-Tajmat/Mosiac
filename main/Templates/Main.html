@@ -28,24 +28,239 @@
       }
       .content {
         display: grid;
-        width: 700px;
-        height: 40px;
-        grid-template-columns: 670px 30px;
+        width: 800px;
+        height: 60px;
+        grid-template-columns: 770px 30px;
         /* background-color: aqua; */
         border: 1px solid black;
         margin: 30px;
       }
       .goTo {
-        width: 20px;
-        padding: 10px;
+        width: 40px;
         border-radius: 50%;
         display: inline-block;
+        margin-top: 10px;
+        border: none;
+        background: aqua;
       }
       .title {
         display: inline-block;
+        padding-left: 20px;
+        color: aqua;
       }
       .video-info {
         height: 40px;
+      }
+      .arrow {
+        font-size: 24px;
+        margin-top: 7px;
+      }
+      .about-section-section {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        margin: 20px;
+      }
+
+      .video-title-about {
+        font-size: 18px;
+        font-weight: bold;
+        margin-bottom: 10px;
+      }
+
+      .channel-info {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+        margin-top: 20px;
+      }
+
+      .channel-image {
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        margin-right: 10px;
+      }
+
+      .channel-name {
+        font-size: 16px;
+        font-weight: bold;
+        margin-right: 10px;
+      }
+
+      .subscribers {
+        font-size: 14px;
+        color: gray;
+        margin-right: 10px;
+      }
+
+      .join-btn,
+      .subscribe-btn,
+      .like-btn,
+      .dislike-btn,
+      .share-btn,
+      .download-btn,
+      .more-options-btn {
+        background-color: white;
+        border: 1px solid lightgray;
+        border-radius: 4px;
+        padding: 5px 10px;
+        margin-right: 5px;
+        cursor: pointer;
+      }
+
+      .join-btn {
+        background-color: black;
+        color: white;
+      }
+
+      .subscribe-btn {
+        display: flex;
+        align-items: center;
+      }
+
+      .subscribe-btn .dropdown-arrow {
+        margin-left: 5px;
+      }
+
+      .video-actions {
+        display: flex;
+        align-items: center;
+      }
+      .description-container,
+      .exercise-container,
+      .about-container {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        padding: 20px;
+        max-width: 800px;
+        margin: 20px auto;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .view-info {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+        font-size: 14px;
+        color: #606060;
+        margin-bottom: 15px;
+      }
+
+      .app-links {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .app-links a {
+        color: #065fd4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .app-links a:hover {
+        text-decoration: underline;
+      }
+
+      .video-description-inside {
+        font-size: 14px;
+        color: #333;
+        margin-bottom: 15px;
+        position: relative;
+      }
+
+      .short-description {
+        margin: 0;
+      }
+
+      .full-description {
+        display: none;
+      }
+
+      .toggle-btn {
+        background-color: transparent;
+        border: 1px solid aqua;
+        color: black;
+        border-radius: 20%;
+        cursor: pointer;
+        font-size: 14px;
+        padding: 0;
+        margin-top: 10px;
+        background-color: white;
+      }
+
+      .toggle-btn:hover {
+        text-decoration: underline;
+      }
+
+      .mentioned-video {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .mentioned-video a {
+        color: #065fd4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .mentioned-video a:hover {
+        text-decoration: underline;
+      }
+
+      .courses {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .courses a {
+        color: #065fd4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .courses a:hover {
+        text-decoration: underline;
+      }
+
+      .podcast {
+        font-size: 14px;
+        margin-bottom: 15px;
+      }
+
+      .podcast a {
+        color: #065fd4;
+        text-decoration: none;
+        font-weight: bold;
+      }
+
+      .podcast a:hover {
+        text-decoration: underline;
+      }
+
+      hr {
+        border: 0;
+        border-top: 1px solid #ddd;
+        margin: 15px 0;
+      }
+
+      p {
+        margin: 10px 0;
+      }
+      .video-info {
+        width: 900px;
+        border-style: solid;
+        margin-top: 10px;
+        height: 50px;
+        display: grid;
+        grid-template-columns: 350px 300px 300px;
+        justify-content: space-around;
+      }
+      body {
+        display: flex;
+        justify-content: center;
+        align-items: center;
       }
     </style>
   </head>
@@ -89,15 +304,67 @@
           </div>
         </section>
         <section class="video-info">
-          <a class="about-creator" href="#"><p>About</p> </a>
-          <a class="video-discription" href="#"><p>Discription</p> </a>
-          <div class="excercises" href="#"><p>Exercises</p></div>
+          <a class="about-creator" href="#" id="about-btn"><p>About</p></a>
+          <div class="video-description" href="#" id="description-btn">
+            <p>Description</p>
+          </div>
+          <div class="exercises" id="exercises-btn"><p>Exercises</p></div>
         </section>
-        <section class="exercise">
-          <!-- <form class="content" action="" method="post">
-            <h3 class="title">Title</h3>
-            <button class="goTo" type="submit">Arrow</button>
-          </form> -->
+        <section class="about" id="about-section">
+          <!-- About content here -->
+          <section class="about-container">
+            <div class="about-section-section">
+              <div class="video-title-about">{{ title }}</div>
+              <div class="channel-info">
+                <img
+                  src="/static/dist/images/jelly-pic.jpg"
+                  alt="Dhruv Rathee"
+                  class="channel-image"
+                />
+                <div class="channel-name">Dhruv Rathee</div>
+                <div class="subscribers">20.6M subscribers</div>
+              </div>
+            </div>
+          </section>
+        </section>
+        <section class="exercise" id="exercise-section">
+          <!-- Exercise content here -->
+          <section class="exercise-container"></section>
+        </section>
+        <section class="description" id="description-section">
+          <!-- Description content here -->
+          <div class="description-container">
+            <div class="view-info">
+              <span class="view-count">11,280,564 views</span>
+              <span class="upload-date">26 May 2024</span>
+              <span class="trending">#1 on Trending</span>
+            </div>
+
+            <div class="video-description-inside">
+              <p class="short-description">
+                In this video, we delve into India's escalating climate
+                challenges...
+              </p>
+              <div class="full-description">
+                <p>
+                  In this video, we delve into India's escalating climate
+                  challenges, from devastating forest fires to persistent
+                  heatwaves. We explore the dire state of forests, impacted by
+                  human activities and natural causes, and the widespread
+                  consequences of El Niño, which exacerbates dry conditions and
+                  leads to less rainfall. As we face record-setting global
+                  temperatures and their severe impacts on local weather, we
+                  discuss the urgent need for effective climate policies and
+                  community-based actions. Join us to understand how these
+                  environmental crises affect us and what steps we can take to
+                  mitigate their effects.
+                </p>
+              </div>
+              <button class="toggle-btn" onclick="toggleDescription()">
+                Show More
+              </button>
+            </div>
+          </div>
         </section>
       </div>
 
@@ -126,5 +393,67 @@
     <script src="{% static 'closing-window.js'%}"></script>
     <script src="{% static 'custom-player.js'%}"></script>
     <script src="{% static 'Fetch-video.js'%}"></script>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+        // Get the buttons and sections
+        const aboutBtn = document.getElementById("about-btn");
+        const descriptionBtn = document.getElementById("description-btn");
+        const exercisesBtn = document.getElementById("exercises-btn");
+
+        const aboutSection = document.getElementById("about-section");
+        const descriptionSection = document.getElementById(
+          "description-section"
+        );
+        const exerciseSection = document.getElementById("exercise-section");
+
+        // Function to hide all sections
+        function hideAllSections() {
+          aboutSection.style.display = "none";
+          descriptionSection.style.display = "none";
+          exerciseSection.style.display = "none";
+        }
+
+        // Function to show the selected section
+        function showSection(section) {
+          hideAllSections();
+          section.style.display = "block";
+        }
+
+        // Add click event listeners
+        aboutBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          showSection(aboutSection);
+        });
+
+        descriptionBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          showSection(descriptionSection);
+        });
+
+        exercisesBtn.addEventListener("click", function (event) {
+          event.preventDefault();
+          showSection(exerciseSection);
+        });
+
+        // Initially hide all sections
+        hideAllSections();
+      });
+
+      function toggleDescription() {
+        const fullDescription = document.querySelector(".full-description");
+        const toggleBtn = document.querySelector(".toggle-btn");
+
+        if (
+          fullDescription.style.display === "none" ||
+          fullDescription.style.display === ""
+        ) {
+          fullDescription.style.display = "block";
+          toggleBtn.textContent = "Show Less";
+        } else {
+          fullDescription.style.display = "none";
+          toggleBtn.textContent = "Show More";
+        }
+      }
+    </script>
   </body>
 </html>

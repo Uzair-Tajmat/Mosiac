@@ -16,6 +16,7 @@
       rel="stylesheet"
     />
   </head>
+  <style></style>
   <body>
     <header class="header">
       <div class="left">
@@ -41,14 +42,14 @@
       <div class="header-illustration">
         <img
           class="header-illustration-image asset-dark"
-          src="/static/dist/images/header-illustration-dark.svg"
+          src="/static/dist/images/header-illustration-light.svg"
           alt="Header illustration"
         />
       </div>
       <div class="hero-media-illustration">
         <img
           class="hero-media-illustration-image asset-dark"
-          src="/static/dist/images/hero-media-illustration-dark.svg"
+          src="/static/dist/images/hero-media-illustration-light.svg"
           alt="Hero media illustration"
         />
       </div>
@@ -139,7 +140,8 @@
                   </div>
                   <div class="video-info">
                     <div class="video-title">
-                      <p class="title-video">${video.title}<br /></p>
+                      <p class="title-video" id="title-video" name="title-video">${video.title}<br /></p>
+                      <input type="hidden" id="title" name="title" class="title" value="${video.title}"/>
                       <button
                         class="button button-primary"
                         type="submit"
@@ -149,6 +151,7 @@
                       <input type="hidden" name="video_path" class="video_path" value="${video.video_path}">
                     </div>
                     <p class="Youtuber">${video.description}</p>
+                    <input type="hidden" id="dis" name="dis" class="dis" value="${video.description}"/>
                   </div>
                 </div>
                 
@@ -158,5 +161,6 @@
           });
       });
     </script>
+    <script src="/static/dist/js/main.min.js"></script>
   </body>
 </html>

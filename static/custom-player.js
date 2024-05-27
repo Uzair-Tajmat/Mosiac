@@ -1,6 +1,6 @@
 const media = document.querySelector("video");
 const controls = document.querySelector(".controls");
-var exerciseSection = document.querySelector(".exercise");
+var exerciseSection = document.querySelector(".exercise-container");
 const play1 = document.querySelector(".play");
 const stop = document.querySelector(".stop");
 const rwd = document.querySelector(".rwd");
@@ -70,15 +70,16 @@ function sendPauseTime(currentTime) {
   })
     .then((response) => response.json())
     .then((data) => {
-      dataRecieved = data.generatedResponse;
-      globaltitle = data.title;
       var exerciseHTML = "";
-      exerciseHTML += `<form class="content" action="AllContent" method="post">
-                              <h3 class="title"">${data.title}</h3>
-                              <input type="hidden" name="data" class="data" value=
-                              ${data.generatedResponse}>
-                              <button class="goTo" type="submit">Arrow</button>
-                          </form>`;
+      data.generatedResponse.forEach((responseItem) => {
+        exerciseHTML += `<form class="content" action="AllContent" method="post">
+      <h3 class="title" id="title">${responseItem.title}</h3>
+      <input type="hidden" name="title" id="titleInput" value="${responseItem.title}">
+      <input type="hidden" name="data" class="data" id="data" value="${responseItem.response}">
+      <button class="goTo" type="submit"><p class="arrow">&rarr;</p></button>
+  </form>`;
+      });
+
       exerciseSection.innerHTML = exerciseHTML;
       console.log("Success:", data.generatedResponse);
       console.log(data.title);

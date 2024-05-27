@@ -71,7 +71,7 @@ body {
   height: 50px;
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 .channel-pic {
   width: 40px;

@@ -86,8 +86,11 @@ def First(request):
 def Main(request):
     if request.method == "POST":
         video_path=request.POST.get('video_path')
+        title=request.POST.get('title')
+        discrip=request.POST.get('dis')
+        print(title)
         print(video_path)
-        return render(request, 'main.html', {'video_path': video_path})
+        return render(request, 'main.html', {'video_path': video_path,'title':title,'dis':discrip})
     
 @csrf_exempt
 def OpenMain(request):
@@ -128,7 +131,7 @@ logger = logging.getLogger(__name__)
 
 # openai.api_key = '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'
 # messages = [ {"role": "system", "content":"You are a intelligent Teacher."} ]
-
+gpt_response=[]
 
 @csrf_exempt
 def handle_pause_time(request):
@@ -147,7 +150,7 @@ def handle_pause_time(request):
             # Get the corresponding text
             text = json_data.get(key, "No text available for this second.")
 
-
+            
             # messages.append({"role":"user","content":text.replace("\n", "").replace("/", "")})
             # chat = openai.ChatCompletion.create(
             # model="gpt-3.5-turbo", messages=messages)
@@ -155,21 +158,19 @@ def handle_pause_time(request):
             # print(f"ChatGPT: {answer}")
 
 
-            # model = genai.GenerativeModel("gemini-1.5-flash")
-            # chat = model.start_chat()
-            # response = chat.send_message(text)
-            gpt_response="Example of response"
-           
-            # response_data = {
-            #     "text": response.text,  
-               
-            # }
-            
-
-            
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            chat = model.start_chat()
+            response = chat.send_message(text)
             title="Introduction to Dictionary"
+            gpt_response.append({'title':title , "response":response.text})
+            
+           
+            
 
-            return JsonResponse({'status': 'success', 'generatedResponse':gpt_response , 'title':title})
+            
+           
+
+            return JsonResponse({'status': 'success', 'generatedResponse':gpt_response})
         except FileNotFoundError:
             logger.error('JSON file not found.')
             return JsonResponse({'status': 'error', 'message': 'JSON file not found.'}, status=500)
@@ -204,10 +205,13 @@ def Upload(request):
     return render(request, 'first.html', {'form': form})
         
 
-      
-@csrf_exempt
+@csrf_exempt 
 def AllContent(request):
-    if request.method=="POST":
-        title=request.POST.get('title')
-        content=request.POST.get('data')
-    return render(request,'AllContent.html', {'title': title},{'content':content} )
+    title = None
+    content = None
+    if request.method == "POST":
+        title = request.POST.get('title')
+        content = request.POST.get('data')
+        print(title)
+        print(content)
+    return render(request, 'AllContent.html', {'title': title, 'content': content})
