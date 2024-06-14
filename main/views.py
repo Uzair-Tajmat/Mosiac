@@ -162,9 +162,9 @@ def handle_pause_time(request):
             chat = model.start_chat()
             response = chat.send_message(text)
             title="Introduction to Dictionary"
-            response_text = response.text.replace('\n', '<br>')
+           
 
-            gpt_response.append({'title':title , "response":response_text})
+            gpt_response.append({'title':title , "response":response.text})
             
            
             
