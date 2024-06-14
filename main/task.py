@@ -61,7 +61,8 @@ def process_video(video_path, title):
 
 @shared_task
 def performExtraction(title):
-    video_path = f"./media/uploads/{title}.mp4"
+    video_path_temp = f"./media/uploads/{title}.mp4"
+    video_path = video_path_temp.replace(" ","_")
     print(video_path)
     
     pytesseract.pytesseract.tesseract_cmd = r'C:\Program Files\Tesseract-OCR\tesseract.exe'  # Replace with your Tesseract executable path
