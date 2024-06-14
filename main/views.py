@@ -19,7 +19,7 @@ from .models import Upload
 from .forms import UploadForm
 from .task import performExtraction
 # from .task import add
-import openai 
+# import openai 
 import google.generativeai as genai
 
 
@@ -141,14 +141,15 @@ def handle_pause_time(request):
         
         # Load JSON data
         try:
-            with open('./static/Test2_extracted_text.json', 'r') as json_file:
+            with open('./ExtractedText_Files/Stack_extracted_text.json', 'r') as json_file:
                 json_data = json.load(json_file)
                 
             # Construct the key
-            key = f"Test2_second_{paused_time}"
+            key = f"Stack_second_{paused_time}"
             
             # Get the corresponding text
             text = json_data.get(key, "No text available for this second.")
+            print(text)
 
             
             # messages.append({"role":"user","content":text.replace("\n", "").replace("/", "")})
@@ -161,10 +162,10 @@ def handle_pause_time(request):
             model = genai.GenerativeModel("gemini-1.5-flash")
             chat = model.start_chat()
             response = chat.send_message(text)
-            title="Introduction to Dictionary"
-            response_text = response.text.replace('\n', '<br>')
+            title="Introduction to Stack"
+            print(response.text)
 
-            gpt_response.append({'title':title , "response":response_text})
+            gpt_response.append({'title':title , "response":response.text})
             
            
             
@@ -197,6 +198,7 @@ def Upload(request):
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
             form.save()
+            print(title)
             performExtraction.delay(title)
             # Check task status
             print("Done 2")
