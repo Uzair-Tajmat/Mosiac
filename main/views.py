@@ -23,6 +23,7 @@ from .task import performExtraction
 import google.generativeai as genai
 from django.contrib.sessions.backends.db import SessionStore
 from asgiref.sync import sync_to_async
+from django.core.files.storage import default_storage
 
 genai.configure(api_key="AIzaSyD_WbFuq-anTyje-zbQ3PIOcs1OcyPWfc4")
 chat_log=[]
@@ -209,8 +210,52 @@ def Upload(request):
         if form.is_valid():
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
-            form.save()
-            print(title)
+            upload=form.save(commit=False)
+           
+            video = request.FILES['file']
+            print("FIle Recieved")
+            video_path = default_storage.save(f'uploads/{title}.mp4', video)
+            video_full_path = default_storage.path(video_path)
+            print(video_full_path)
+            video_clip = VideoFileClip(video_full_path)
+            upload.video_time = f"{int(video_clip.duration // 60)}:{str(int(video_clip.duration % 60)).zfill(2)}"
+            print("Video Done")
+            video_clip.close()
+
+            thumbnail = request.FILES['thumbnail']
+            print("Thumbnail Recieved and started")
+            thumbnail_path = default_storage.save(f'thumbnails/{thumbnail.name}', thumbnail)
+            print(thumbnail_path)
+            print("Done Thumbanil")
+            # Update file paths in the model instance
+            upload.file = video_path
+            upload.thumbnail = thumbnail_path
+            
+            # Save the modified instance to the database
+            upload.save()
+            json_data = {
+                "thumbnail": f"/media/{thumbnail_path}",
+                "video_time": upload.video_time,
+                "channel_pic": "/static/dist/images/trig_account.jpg",
+                "title": upload.title,
+                "description": upload.description,
+                "video_path": f"/media/{video_path}"
+            }
+            print("Datat ready")
+            json_file_path = './static/dist/data/videos.json'
+            if os.path.exists(json_file_path):
+                with open(json_file_path, 'r') as json_file:
+                    data = json.load(json_file)
+            else:
+                data = []
+            print("Data added")
+            data.append(json_data)
+            
+            with open(json_file_path, 'w') as json_file:
+                json.dump(data, json_file, indent=2)
+             
+            # print(title)
+            print("Sending further")
             performExtraction.delay(title)
             # Check task status
             print("Done 2")
