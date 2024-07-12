@@ -21,17 +21,22 @@ from .task import performExtraction
 # from .task import add
 # import openai 
 import google.generativeai as genai
-
+from django.contrib.sessions.backends.db import SessionStore
+from asgiref.sync import sync_to_async
 
 genai.configure(api_key="AIzaSyD_WbFuq-anTyje-zbQ3PIOcs1OcyPWfc4")
 chat_log=[]
+
 
 @csrf_exempt
 async def closingWindow(request):
     if request.method == 'POST':
         playback_time_seconds = float(request.POST.get('playback_time', 0))
         total_duration = float(request.POST.get('total_duration', 0))
-        
+        title = str(request.POST.get('title'))
+        session_title = await sync_to_async(lambda: request.session.get('title', ''))()
+        actualTitle = session_title.replace(' ', '_') if session_title else title.replace(' ', '_')
+        print(actualTitle)
         if playback_time_seconds > 60: 
             
             folder_path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'static', 'video_sections')
@@ -39,13 +44,14 @@ async def closingWindow(request):
             if not os.path.exists(folder_path):
                 os.makedirs(folder_path)
                 
-            original_video_path = './static/Test1.mp4'
+            original_video_path = f'./media/uploads/{actualTitle}.mp4'
+            print(original_video_path)
             i = 1
             startPos = 0
             
             async def split_video(startPos, endPos, i):
                 clip = VideoFileClip(original_video_path).subclip(startPos, endPos)
-                part_name = os.path.join(folder_path, "part_" + str(i) + ".mp4")
+                part_name = os.path.join(folder_path, f"{actualTitle}_part_" + str(i) + ".mp4")
                 clip.write_videofile(part_name, codec="libx264", temp_audiofile='temp-audio.m4a', remove_temp=True, audio_codec='aac')
                 print("part ", i, "done")
                 
@@ -66,11 +72,15 @@ async def closingWindow(request):
 
             await asyncio.gather(*tasks)
             chat_log.clear()
+            await sync_to_async(lambda: request.session.pop('title', None))()
             return JsonResponse({'success': True})
            
         else:
             print('Playback time is less than or equal to 1 minute:')
+            await sync_to_async(lambda: request.session.pop('title', None))()
             return JsonResponse({'success': False, 'error': 'Playback time is less than or equal to 1 minute'})
+        
+        
     else:
         return JsonResponse({'success': False, 'error': 'Invalid request method'})
 
@@ -88,6 +98,7 @@ def Main(request):
         video_path=request.POST.get('video_path')
         title=request.POST.get('title')
         discrip=request.POST.get('dis')
+        request.session['title'] = title
         print(title)
         print(video_path)
         return render(request, 'main.html', {'video_path': video_path,'title':title,'dis':discrip})
@@ -101,7 +112,7 @@ def OpenMain(request):
         
         print(modified_video_path)
         print(video_path)
-        return render(request, 'Main.html', {'video_path': modified_video_path})
+        return render(request, 'Main.html', {'video_path': video_path})
 
 @csrf_exempt
 def pausedContent(request):
@@ -138,14 +149,15 @@ def handle_pause_time(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         paused_time = data.get('paused_time')
-        
+        session_title = request.session.get('title', '')
+        actualTitle = session_title.replace(' ', '_') if session_title else title.replace(' ', '_')
         # Load JSON data
         try:
-            with open('./ExtractedText_Files/Stack_extracted_text.json', 'r') as json_file:
+            with open(f'./ExtractedText_Files/{actualTitle}_extracted_text.json', 'r') as json_file:
                 json_data = json.load(json_file)
                 
             # Construct the key
-            key = f"Stack_second_{paused_time}"
+            key = f"{actualTitle}_second_{paused_time}"
             
             # Get the corresponding text
             text = json_data.get(key, "No text available for this second.")
@@ -162,7 +174,7 @@ def handle_pause_time(request):
             model = genai.GenerativeModel("gemini-1.5-flash")
             chat = model.start_chat()
             response = chat.send_message(text)
-            title="Introduction to Stack"
+            title="Introduction to Python Dictionary"
             print(response.text)
 
             gpt_response.append({'title':title , "response":response.text})

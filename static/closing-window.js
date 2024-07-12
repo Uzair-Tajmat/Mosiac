@@ -17,14 +17,20 @@ function getCookie1(name) {
 window.addEventListener("beforeunload", (event) => {
   var video = document.getElementById("video");
   var totalDuration = video.duration;
+  var titleElement = document.querySelector(".video-title-about");
+  var title = titleElement ? titleElement.textContent.trim() : "";
   var csrftoken = getCookie1("csrftoken");
   var playbackTime = video.currentTime;
-
+  console.log("Title being sent:", title);
   $.ajax({
     url: "/closingWindow/",
     type: "POST",
     headers: { "X-CSRFToken": csrftoken },
-    data: { total_duration: totalDuration, playback_time: playbackTime },
+    data: {
+      total_duration: totalDuration,
+      playback_time: playbackTime,
+      title: title,
+    },
     dataType: "json",
     success: function (response) {
       console.log("Playback time sent successfully.");
