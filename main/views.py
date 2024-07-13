@@ -131,10 +131,12 @@ def pausedContent(request):
 
 @csrf_exempt 
 def fetch_videos(request):
+    query = request.GET.get('title', '') 
+    print(query)
     video_folder = './static/video_sections'
     videos = []
     for filename in os.listdir(video_folder):
-        if filename.endswith(('.mp4', '.avi', '.mov', '.wmv')):
+        if filename.endswith(('.mp4', '.avi', '.mov', '.wmv')) and query.lower() in filename.lower():
             videos.append({'name': filename, 'path': os.path.join(video_folder, filename)})
     return JsonResponse(videos, safe=False)
 
