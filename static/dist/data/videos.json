@@ -1,10 +1,18 @@
 [
   {
-    "thumbnail": "/static/dist/thumbnails/dictionary.jpg",
+    "thumbnail": "/media/thumbnails/jelly.jpg",
     "video_time": "14:20",
     "channel_pic": "/static/dist/images/trig_account.jpg",
     "title": "Python Dictionary",
     "description": "Learn all about Python dictionaries in this concise tutorial! We'll cover: Creating dictionaries Accessing and modifying values, Key dictionary methods Iterating through dictionaries, Practical examples, Perfect for beginners and those looking to refresh their knowledge. Enroll for more Python tutorials!",
     "video_path": "/media/uploads/Python_Dictionary.mp4"
+  },
+  {
+    "thumbnail": "/media/thumbnails/wp6546128-money-heist-2020-4k-wallpapers.jpg",
+    "video_time": "8:33",
+    "channel_pic": "/static/dist/images/trig_account.jpg",
+    "title": "Stack",
+    "description": "This is The INdia's Most In-depthStack Course . Want to know Why? Watch the video.",
+    "video_path": "/media/uploads/Stack.mp4"
   }
 ]

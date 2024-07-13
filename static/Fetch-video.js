@@ -1,4 +1,13 @@
 function fetchVideos() {
+  const videoTitleElement = document.querySelector(".video-title-about");
+
+  if (!videoTitleElement) {
+    console.error("Element with class 'video-title-about' not found.");
+    return;
+  }
+
+  const videoTitle = videoTitleElement.textContent.trim(); // Use textContent or innerText
+
   var xhr = new XMLHttpRequest();
   xhr.onreadystatechange = function () {
     if (xhr.readyState === XMLHttpRequest.DONE) {
@@ -10,7 +19,11 @@ function fetchVideos() {
       }
     }
   };
-  xhr.open("GET", "/fetch_videos/", true); // Replace '/fetch_videos/' with the URL of your Django view
+  xhr.open(
+    "GET",
+    `/fetch_videos/?title=${encodeURIComponent(videoTitle)}`,
+    true
+  ); // Replace '/fetch_videos/' with the URL of your Django view
   xhr.send();
 }
 
