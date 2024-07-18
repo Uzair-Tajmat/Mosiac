@@ -24,7 +24,12 @@ import google.generativeai as genai
 from django.contrib.sessions.backends.db import SessionStore
 from asgiref.sync import sync_to_async
 from django.core.files.storage import default_storage
+from cleantext import clean
+import re
+import spacy
+import yake
 
+nlp = spacy.load("en_core_web_sm")
 genai.configure(api_key="AIzaSyD_WbFuq-anTyje-zbQ3PIOcs1OcyPWfc4")
 chat_log=[]
 
@@ -142,9 +147,44 @@ def fetch_videos(request):
 
 logger = logging.getLogger(__name__)
 
+def custom_clean(text):
+    return clean(text,
+                 fix_unicode=True,       # Fix various unicode errors
+                 to_ascii=True,          # Transliterate to closest ASCII representation
+                 lower=False,            # Keep the text case unchanged
+                 no_line_breaks=False,   # Preserve line breaks
+                 no_urls=True,           # Remove URLs
+                 no_emails=True,         # Remove email addresses
+                 no_phone_numbers=True,  # Remove phone numbers
+                 no_numbers=False,       # Keep numbers
+                 no_digits=False,        # Keep digits
+                 no_currency_symbols=True, # Remove currency symbols
+                 no_punct=False,         # Keep punctuation
+                 replace_with_url="<URL>",
+                 replace_with_email="<EMAIL>",
+                 replace_with_phone_number="<PHONE>",
+                 replace_with_number="<NUMBER>",
+                 replace_with_digit="0",
+                 replace_with_currency_symbol="<CUR>",
+                 lang="en"               # Set to your language
+                 )
 
-# openai.api_key = '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'
-# messages = [ {"role": "system", "content":"You are a intelligent Teacher."} ]
+def clean_text(text):
+    # Use spaCy for tokenization
+    doc = nlp(text)
+    cleaned_tokens = [custom_clean(token.text) for token in doc]
+    cleaned_text = ' '.join(cleaned_tokens)
+    return cleaned_text
+
+
+
+
+def extract_keywords_yake(text, top_n=10):
+    kw_extractor = yake.KeywordExtractor()
+    keywords = kw_extractor.extract_keywords(text)
+    return [keyword for keyword, score in keywords[:top_n]]
+
+
 gpt_response=[]
 
 @csrf_exempt
@@ -161,22 +201,16 @@ def handle_pause_time(request):
                 
             # Construct the key
             key = f"{actualTitle}_second_{paused_time}"
-            
             # Get the corresponding text
             text = json_data.get(key, "No text available for this second.")
-            print(text)
+            updated=clean_text(text)
+            print(updated)
 
             
-            # messages.append({"role":"user","content":text.replace("\n", "").replace("/", "")})
-            # chat = openai.ChatCompletion.create(
-            # model="gpt-3.5-turbo", messages=messages)
-            # answer = chat.choices[0].text.content
-            # print(f"ChatGPT: {answer}")
-
 
             model = genai.GenerativeModel("gemini-1.5-flash")
             chat = model.start_chat()
-            response = chat.send_message(text)
+            response = chat.send_message(updated)
             title="Introduction to Python Dictionary"
             print(response.text)
 
