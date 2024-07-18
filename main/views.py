@@ -118,7 +118,7 @@ def OpenMain(request):
         
         print(modified_video_path)
         print(video_path)
-        return render(request, 'Main.html', {'video_path': modified_video_path})
+        return render(request, 'PartsPlayer.html', {'video_path': modified_video_path})
 
 @csrf_exempt
 def pausedContent(request):
