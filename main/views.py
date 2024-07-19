@@ -18,8 +18,6 @@ import time
 from .models import Upload
 from .forms import UploadForm
 from .task import performExtraction
-# from .task import add
-# import openai 
 import google.generativeai as genai
 from django.contrib.sessions.backends.db import SessionStore
 from asgiref.sync import sync_to_async
@@ -231,6 +229,56 @@ def handle_pause_time(request):
     return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
 
 
+@csrf_exempt
+def handle_pause_parts(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        temp_title=data.get('title','None')
+        match = re.search(r'\d+', temp_title)
+        if match:
+            integer = int(match.group())
+        totalDuration=int(data.get('totalDuration'))
+        paused_time = data.get('paused_time')
+        actualDuration=(totalDuration*(integer-1))+paused_time
+        session_title = request.session.get('title', '')
+        actualTitle = session_title.replace(' ', '_') if session_title else title.replace(' ', '_')
+        # Load JSON data
+        print(actualTitle)
+        try:
+            with open(f'./ExtractedText_Files/{actualTitle}_extracted_text.json', 'r') as json_file:
+                json_data = json.load(json_file)
+                
+            # Construct the key
+            key = f"{actualTitle}_second_{actualDuration}"
+            # Get the corresponding text
+            text = json_data.get(key, "No text available for this second.")
+            updated=clean_text(text)
+            print(updated)
+
+            
+            model = genai.GenerativeModel("gemini-1.5-flash")
+            chat = model.start_chat()
+            response = chat.send_message(updated)
+            title="Introduction to Python Dictionary"
+            print(response.text)
+
+            gpt_response.append({'title':title , "response":response.text})
+            
+           
+            
+
+            
+           
+
+            return JsonResponse({'status': 'success', 'generatedResponse':gpt_response})
+        except FileNotFoundError:
+            logger.error('JSON file not found.')
+            return JsonResponse({'status': 'error', 'message': 'JSON file not found.'}, status=500)
+        except json.JSONDecodeError:
+            logger.error('Error decoding JSON file.')
+            return JsonResponse({'status': 'error', 'message': 'Error decoding JSON file.'}, status=500)
+        
+    return JsonResponse({'status': 'error', 'message': 'Invalid request method.'}, status=400)
 
 
 
@@ -245,7 +293,7 @@ def Upload(request):
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
             upload=form.save(commit=False)
-           
+            performExtraction.delay(title)
             video = request.FILES['file']
             print("FIle Recieved")
             video_path = default_storage.save(f'uploads/{title}.mp4', video)
@@ -290,7 +338,7 @@ def Upload(request):
              
             # print(title)
             print("Sending further")
-            performExtraction.delay(title)
+            
             # Check task status
             print("Done 2")
             return redirect('First') 
