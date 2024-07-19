@@ -293,7 +293,7 @@ def Upload(request):
             title = form.cleaned_data['title']
             email = form.cleaned_data['email']
             upload=form.save(commit=False)
-            performExtraction.delay(title)
+            performExtraction.delay(title,email)
             video = request.FILES['file']
             print("FIle Recieved")
             video_path = default_storage.save(f'uploads/{title}.mp4', video)
