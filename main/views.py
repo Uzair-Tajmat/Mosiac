@@ -114,11 +114,9 @@ def OpenMain(request):
     if request.method=="POST":
         data = json.loads(request.body)
         video_path = data.get('path', '')
+        id=data.get('id','')
         modified_video_path = video_path[1:] if len(video_path) > 1 else ''
-        
-        print(modified_video_path)
-        print(video_path)
-        return render(request, 'PartsPlayer.html', {'video_path': modified_video_path})
+        return render(request, 'PartsPlayer.html', {'video_path': modified_video_path , 'title':id})
 
 @csrf_exempt
 def pausedContent(request):
@@ -195,6 +193,7 @@ def handle_pause_time(request):
         session_title = request.session.get('title', '')
         actualTitle = session_title.replace(' ', '_') if session_title else title.replace(' ', '_')
         # Load JSON data
+        print(actualTitle)
         try:
             with open(f'./ExtractedText_Files/{actualTitle}_extracted_text.json', 'r') as json_file:
                 json_data = json.load(json_file)
@@ -207,7 +206,6 @@ def handle_pause_time(request):
             print(updated)
 
             
-
             model = genai.GenerativeModel("gemini-1.5-flash")
             chat = model.start_chat()
             response = chat.send_message(updated)

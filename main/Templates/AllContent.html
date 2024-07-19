@@ -54,6 +54,21 @@
       p{
         color: white;
       }
+      .content {
+            margin: 20px;
+            padding: 20px;
+            border: 1px solid #ccc;
+            background-color: transparent;
+            font-family: monospace;
+            white-space: pre-wrap;  /* Preserve white space and line breaks */
+            word-wrap: break-word;  /* Break long words and wrap them */
+            word-break: break-all;  /* Aggressively break long strings */
+            overflow-wrap: break-word;
+        }
+        .entire{
+          max-width: 1200px;
+          
+        }
     </style>
   </head>
   <body class="is-boxed has-animations lights-off">
@@ -157,9 +172,9 @@
                 </div> -->
                 <div class="entire">
                   <p >{{ title }}</p>
-                  <div class="content">
+                  <pre class="content">
                     {{ content}}
-                  </div>
+                  </pre>
                 </div>
               </div>
             </div>

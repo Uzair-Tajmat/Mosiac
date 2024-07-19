@@ -26,12 +26,10 @@ function fetchVideos() {
   ); // Replace '/fetch_videos/' with the URL of your Django view
   xhr.send();
 }
-
 function displayVideos(videos) {
   var playlistSection = document.querySelector(".playlist-section");
   var playlistHTML = "";
   videos.forEach(function (video, index) {
-    console.log(video.path);
     var thumbnailUrl = "/static/default_thumnail.jpeg";
     var title = video.name.replace(/\.[^.]*$/, "");
     var videoId = "video-" + index;
@@ -49,19 +47,19 @@ function displayVideos(videos) {
     var videoLink = document.getElementById("video-" + index);
     videoLink.addEventListener("click", function (event) {
       event.preventDefault(); // Prevent the default link behavior
-      console.log(video.path);
-      sendVideoPathToBackend(video.path);
+      var title = video.name.replace(/\.[^.]*$/, "");
+      sendVideoPathToBackend(video.path, title);
     });
   });
 }
-function sendVideoPathToBackend(videoPath) {
+function sendVideoPathToBackend(videoPath, vidIndex) {
   console.log(videoPath);
   fetch("Open", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ path: videoPath }),
+    body: JSON.stringify({ path: videoPath, id: vidIndex }),
   })
     .then((response) => {
       if (response.ok) {
