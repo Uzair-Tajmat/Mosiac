@@ -5,7 +5,7 @@ const playButton = document.querySelector(".play");
 const stopButton = document.querySelector(".stop");
 const rewindButton = document.querySelector(".rwd");
 const forwardButton = document.querySelector(".fwd");
-
+const title_of_video = document.querySelector(".video-title-about").innerHTML;
 const timerWrapper1 = document.querySelector(".timer");
 const timerDisplay1 = document.querySelector(".timer span");
 const timerBar1 = document.querySelector(".timer div");
@@ -61,16 +61,19 @@ function getCookie(name) {
 
 let receivedData;
 let globalTitle;
-
 function sendPauseTime(currentTime) {
   const csrftoken = getCookie("csrftoken");
-  fetch("Main/handle_pause_time/", {
+  fetch("Main/handle_pause_parts/", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
       "X-CSRFToken": csrftoken,
     },
-    body: JSON.stringify({ paused_time: currentTime }),
+    body: JSON.stringify({
+      paused_time: currentTime,
+      title: title_of_video,
+      totalDuration: videoElement.duration,
+    }),
   })
     .then((response) => response.json())
     .then((data) => {
