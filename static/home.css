@@ -247,6 +247,10 @@ canvas {
   flex-direction: column;
   background-color: transparent;
   border: none;
+  overflow: scroll;
+  max-height: 600px;
+  scrollbar-width: 0px;
+  -webkit-overflow-scrolling: 0px;
 }
 .videoPlaylist {
   border: 0.1em solid aliceblue;
@@ -271,4 +275,12 @@ canvas {
 }
 #id_hidden_image_field {
   display: none;
+}
+.playlist-section::-webkit-scrollbar {
+  width: 0; /* For Chrome, Safari, and Opera */
+}
+
+.playlist-section {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
