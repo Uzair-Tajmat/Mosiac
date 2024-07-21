@@ -76,12 +76,10 @@ async def closingWindow(request):
 
             await asyncio.gather(*tasks)
             chat_log.clear()
-            await sync_to_async(lambda: request.session.pop('title', None))()
             return JsonResponse({'success': True})
            
         else:
             print('Playback time is less than or equal to 1 minute:')
-            await sync_to_async(lambda: request.session.pop('title', None))()
             return JsonResponse({'success': False, 'error': 'Playback time is less than or equal to 1 minute'})
         
         
@@ -94,6 +92,7 @@ def home(request):
     return render(request,'index.html')
 
 def First(request):
+    request.session.pop('title', None)
     return render(request,'First.html')
 
 @csrf_exempt
